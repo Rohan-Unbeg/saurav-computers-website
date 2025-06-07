@@ -1,0 +1,166 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
+import Chatbot from '../components/Chatbot.astro';
+import Loader from '../components/Loader.astro';
+import '../styles/theme.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = 'Saurav Computer - IT Training & Digital Services in Shendurjan',
+  description = 'Saurav Computer offers certified IT training courses, SBI Kiosk Banking, and Aaple Seva Kendra services in Shendurjan, Maharashtra.',
+  image = '/images/og-image.jpg',
+  canonicalURL = Astro.url.href,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonicalURL={canonicalURL}
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme Script -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Check for saved theme preference, default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        let theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        
+        // Apply the theme
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('theme', theme);
+        
+        // Listen for system theme changes if no explicit preference is set
+        if (!savedTheme) {
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.classList.toggle('dark', e.matches);
+            document.documentElement.setAttribute('data-theme', newTheme);
+          });
+        }
+      });
+    </script>
+
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script is:inline src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors">
+    <!-- Loader -->
+    <Loader />
+    
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:text-primary-500 focus:z-50">
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <Footer />
+    <Chatbot />
+
+    <script is:inline>
+      // Initialize AOS animations
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true,
+        });
+
+        // Smooth scrolling polyfill for browsers that don't support it
+        if (!('scrollBehavior' in document.documentElement.style)) {
+          const smoothScroll = (target, duration = 1000) => {
+            const targetElement = document.querySelector(target);
+            if (!targetElement) return;
+            
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            const animation = (currentTime) => {
+              if (startTime === null) startTime = currentTime;
+              const timeElapsed = currentTime - startTime;
+              const run = easeInOutQuad(
+                timeElapsed,
+                startPosition,
+                distance,
+                duration
+              );
+              window.scrollTo(0, run);
+              if (timeElapsed < duration) requestAnimationFrame(animation);
+            };
+
+            // Easing function
+            const easeInOutQuad = (t, b, c, d) => {
+              t /= d / 2;
+              if (t < 1) return (c / 2) * t * t + b;
+              t--;
+              return (-c / 2) * (t * (t - 2) - 1) + b;
+            };
+
+            requestAnimationFrame(animation);
+          };
+
+          // Handle all anchor links with hash
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener('click', function (e) {
+              const href = this.getAttribute('href');
+              if (href === '#' || href === '') return;
+              
+              e.preventDefault();
+              smoothScroll(href);
+              
+              // Update URL without jumping
+              if (history.pushState) {
+                history.pushState(null, null, href);
+              } else {
+                location.hash = href;
+              }
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

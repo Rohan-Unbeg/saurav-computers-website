@@ -1,0 +1,69 @@
+---
+export interface Props {
+  question: string;
+  answer: string;
+  index: string;
+}
+
+const { question, answer, index } = Astro.props;
+const accordionId = `accordion-${index}`;
+const headingId = `heading-${index}`;
+const contentId = `content-${index}`;
+---
+
+<div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary-300 dark:hover:border-primary-500">
+  <h3 id={headingId}>
+    <button
+      class="accordion-trigger flex justify-between items-center w-full p-5 text-left bg-white dark:bg-gray-800 hover:bg-primary-50 dark:hover:bg-gray-700/80 transition-colors duration-200"
+      aria-expanded="false"
+      aria-controls={contentId}
+      data-accordion-id={accordionId}
+    >
+      <span class="font-medium text-gray-900 dark:text-white">{question}</span>
+      <svg class="accordion-icon h-5 w-5 text-primary-500 dark:text-primary-400 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+  </h3>
+  
+  <div
+    id={contentId}
+    role="region"
+    aria-labelledby={headingId}
+    class="accordion-content hidden border-t border-gray-100"
+  >
+    <div class="p-5 text-gray-700 dark:text-gray-300 bg-gray-50/80 dark:bg-gray-800/80 rounded-lg">
+      {answer}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+    
+    accordionTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const accordionId = trigger.getAttribute('data-accordion-id');
+        const content = trigger.getAttribute('aria-controls') ? document.getElementById(trigger.getAttribute('aria-controls') || '') : null;
+        const icon = trigger.querySelector('.accordion-icon');
+        
+        // Get current state
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle current accordion
+        trigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        
+        if (content) {
+          if (isExpanded) {
+            content.classList.add('hidden');
+            icon?.classList.remove('rotate-180');
+          } else {
+            content.classList.remove('hidden');
+            icon?.classList.add('rotate-180');
+          }
+        }
+      });
+    });
+  });
+</script>

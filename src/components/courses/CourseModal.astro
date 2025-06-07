@@ -1,0 +1,70 @@
+---
+const { course, open } = Astro.props;
+---
+{open && course && (
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-2" id="course-modal-bg" tabindex="-1">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto relative" id="course-modal-content">
+      <button
+        class="absolute top-3 right-3 text-gray-500 hover:text-indigo-600 text-2xl font-bold focus:outline-none"
+        id="course-modal-close"
+        aria-label="Close"
+        type="button"
+      >
+        ×
+      </button>
+      <img src={course.imageUrl} alt={course.title} class="w-full h-40 object-cover rounded-t-xl" />
+      <div class="p-6">
+        <h2 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{course.title}</h2>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded text-xs font-medium">{course.level}</span>
+          <span class="px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs font-medium">{course.duration}</span>
+          <span class="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs font-medium">{course.category}</span>
+        </div>
+        <p class="mb-4 text-gray-700 dark:text-gray-300">{course.details?.about}</p>
+        <div class="mb-4">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Instructor:</h3>
+          <p class="text-gray-700 dark:text-gray-300">{course.details?.instructor}</p>
+        </div>
+        <div class="mb-4">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Prerequisites:</h3>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
+            {course.details?.prerequisites?.map((p: any) => <li>{p}</li>)}
+          </ul>
+        </div>
+        <div class="mb-4">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Highlights:</h3>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
+            {course.details?.highlights?.map((h: any) => <li>{h}</li>)}
+          </ul>
+        </div>
+        {course.syllabus && (
+          <div class="mb-4">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Syllabus:</h3>
+            <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
+              {course.syllabus.map((s: any) => <li>{s}</li>)}
+            </ul>
+          </div>
+        )}
+        <div class="mb-4">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">You'll Learn:</h3>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
+            {course.outcomes?.map((o: any) => <li>{o}</li>)}
+          </ul>
+        </div>
+        {course.details?.faq && course.details.faq.length > 0 && (
+          <div class="mb-4">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">FAQs:</h3>
+            <ul class="space-y-2">
+              {course.details.faq.map((f: any) => (
+                <li>
+                  <span class="font-medium text-indigo-700 dark:text-indigo-300">Q: {f.question}</span><br />
+                  <span class="text-gray-700 dark:text-gray-300">A: {f.answer}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)} 

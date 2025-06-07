@@ -1,0 +1,57 @@
+<section class="relative min-h-screen flex items-center justify-center bg-gray-900">
+  <!-- Background image -->
+  <div class="absolute inset-0 bg-[url('/images/hero/hero.jpeg')] bg-cover bg-center"></div>
+  <!-- Dark overlay - solid black in dark mode -->
+  <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 to-purple-950 opacity-80 dark:bg-black dark:opacity-70"></div>
+  <!-- Additional overlay for image effect -->
+  <div class="absolute inset-0 bg-black opacity-25 dark:opacity-40"></div>
+  
+  <div class="container mx-auto px-6 sm:px-8 md:px-10 py-16 sm:py-20 md:py-24 relative z-10 text-center">
+    <!-- Centered Text Content -->
+    <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight text-white">
+        Empowering Rural Futures
+      </h1>
+      <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8">
+        Transforming lives through certified IT training, SBI Kiosk Banking, and accessible government services in rural Maharashtra.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/courses" class="btn-primary bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-indigo-500 transition-all duration-300">
+          Explore Courses
+        </a>
+        <a href="/contact" class="btn-outline border-2 border-white text-white hover:bg-white/10 font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-white transition-all duration-300">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>+
+  
+  <!-- Bottom gradient fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent"></div>
+</section>
+
+<style>
+  /* Custom button styles */
+  .btn-primary {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  .btn-outline {
+    transition: all 0.3s ease;
+  }
+  .btn-outline:hover {
+    transform: translateY(-2px);
+  }
+</style>
+
+<script>
+  import AOS from 'aos';
+  AOS.init({
+    duration: 800,
+    once: true,
+  });
+</script>

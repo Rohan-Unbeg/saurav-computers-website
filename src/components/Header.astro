@@ -1,0 +1,323 @@
+---
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const navItems = [
+  { name: 'Home', path: '/' },
+  { name: 'Courses', path: '/courses' },
+  {
+    name: 'Services',
+    children: [
+      { name: 'Aaple Sarkar', path: '/aaple-seva' },
+      { name: 'SBI Kiosk', path: '/sbi-kiosk' },
+    ]
+  },
+  {
+    name: 'About',
+    children: [
+      { name: 'Staff', path: '/staff' },
+      { name: 'Gallery', path: '/gallery' },
+    ]
+  },
+  {
+    name: 'Resources',
+    children: [
+      { name: 'FAQ', path: '/faq' },
+      { name: 'Downloads', path: '/downloads' },
+    ]
+  },
+  { name: 'Contact', path: '/contact' },
+];
+
+// Get current page path for active navigation highlighting
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 w-full bg-[var(--footer-bg)] text-[var(--footer-text)] shadow-sm z-50 transition-all duration-300 border-b border-[var(--color-border)]">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo on left -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center gap-3" aria-label="Saurav Computer Home">
+          <Logo />
+        </a>
+      </div>
+
+      <!-- Centered Navigation -->
+      <nav class="hidden lg:flex flex-1 justify-center items-center space-x-4 mx-4" aria-label="Main Navigation">
+        {navItems.map((item) => (
+          item.children ? (
+            <div class="relative group">
+              <button 
+                class={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 
+                  inline-flex items-center ${
+                    item.children.some(child => currentPath === child.path)
+                      ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-700'
+                      : 'text-[var(--header-text)] hover:text-primary-600 dark:hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+              >
+                {item.name}
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-[var(--header-bg)] dark:bg-gray-800 ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div class="py-1">
+                  {item.children.map((child) => (
+                    <a
+                      href={child.path}
+                      class={`block px-4 py-2 text-sm ${
+                        currentPath === child.path
+                          ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-700'
+                          : 'text-[var(--header-text)] hover:text-primary-600 dark:hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {child.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a 
+              href={item.path} 
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                currentPath === item.path
+                  ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-700'
+                  : 'text-[var(--header-text)] hover:text-primary-600 dark:hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+              aria-current={currentPath === item.path ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          )
+        ))}
+      </nav>
+
+      <!-- Right side: Theme Toggle and Mobile Menu -->
+      <div class="flex items-center space-x-2">
+        <ThemeToggle />
+        
+        <!-- Mobile Menu Button -->
+        <button 
+          id="menu-toggle" 
+          class="lg:hidden rounded-md p-2 text-[var(--header-text)] hover:text-primary-600 dark:hover:text-primary-500 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-300"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Toggle menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Navigation Menu -->
+  <div 
+    id="mobile-menu" 
+    class="lg:hidden hidden bg-[var(--header-bg)] border-t border-[var(--header-border)]"
+    aria-label="Mobile Navigation"
+  >
+    <div class="container mx-auto px-4 py-3 space-y-1">
+      {navItems.map((item) => (
+        item.children ? (
+          <div class="space-y-1 mobile-dropdown" data-dropdown>
+            <button 
+              class={`w-full flex justify-between items-center px-3 py-2 text-sm font-medium rounded-md ${
+                item.children.some(child => currentPath === child.path)
+                  ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-700'
+                  : 'text-[var(--header-text)] hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+              aria-expanded="false"
+              aria-controls={`dropdown-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+            >
+              {item.name}
+              <svg class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div 
+              id={`dropdown-${item.name.toLowerCase().replace(/\s+/g, '-')}`} 
+              class="hidden pl-4 space-y-1 mt-1"
+            >
+              {item.children.map((child) => (
+                <a 
+                  href={child.path} 
+                  class={`block px-3 py-2 rounded-md text-sm font-medium ${
+                    currentPath === child.path
+                      ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-700'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  {child.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a 
+            href={item.path} 
+            class={`block px-3 py-2 rounded-md text-base font-medium ${
+              currentPath === item.path
+                ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-700'
+                : 'text-[var(--header-text)] hover:text-primary-600 dark:hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800'
+            }`}
+            aria-current={currentPath === item.path ? 'page' : undefined}
+          >
+            {item.name}
+          </a>
+        )
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const mobileMenuSetup = () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    
+    // Toggle mobile menu
+    if (menuToggle && mobileMenu && menuIcon && closeIcon) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        mobileMenu.classList.toggle('hidden');
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+        
+        // Close all dropdowns when closing mobile menu
+        if (isExpanded) {
+          document.querySelectorAll('[data-dropdown]').forEach(dropdown => {
+            const button = dropdown.querySelector<HTMLButtonElement>('button[aria-expanded="true"]');
+            if (button) {
+              const targetId = button.getAttribute('aria-controls');
+              if (targetId) {
+                const target = document.getElementById(targetId);
+                if (target) {
+                  target.classList.add('hidden');
+                  button.setAttribute('aria-expanded', 'false');
+                  const svg = button.querySelector<SVGSVGElement>('svg');
+                  if (svg) {
+                    svg.style.transform = 'rotate(0deg)';
+                  }
+                }
+              }
+            }
+          });
+        }
+      });
+    }
+    
+    // Handle dropdown toggles
+    document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach(dropdown => {
+      const button = dropdown.querySelector<HTMLButtonElement>('button[aria-expanded]');
+      if (button) {
+        const targetId = button.getAttribute('aria-controls');
+        if (!targetId) return;
+        
+        const target = document.getElementById(targetId);
+        const icon = button.querySelector<SVGSVGElement>('svg');
+        
+        if (target) {
+          button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle the current dropdown
+            button.setAttribute('aria-expanded', String(!isExpanded));
+            target.classList.toggle('hidden');
+            if (icon) {
+              icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
+            
+            // Close other open dropdowns
+            document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach(otherDropdown => {
+              if (otherDropdown !== dropdown) {
+                const otherButton = otherDropdown.querySelector<HTMLButtonElement>('button[aria-expanded="true"]');
+                if (otherButton) {
+                  const otherTargetId = otherButton.getAttribute('aria-controls');
+                  if (!otherTargetId) return;
+                  
+                  const otherTarget = document.getElementById(otherTargetId);
+                  const otherIcon = otherButton.querySelector<SVGSVGElement>('svg');
+                  if (otherTarget) {
+                    otherTarget.classList.add('hidden');
+                    otherButton.setAttribute('aria-expanded', 'false');
+                    if (otherIcon) {
+                      otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                  }
+                }
+              }
+            });
+          });
+        }
+      }
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('[data-dropdown]')) {
+        document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach(dropdown => {
+          const button = dropdown.querySelector<HTMLButtonElement>('button[aria-expanded="true"]');
+          if (button) {
+            const targetId = button.getAttribute('aria-controls');
+            if (!targetId) return;
+            
+            const target = document.getElementById(targetId);
+            const icon = button.querySelector<SVGSVGElement>('svg');
+            if (target) {
+              target.classList.add('hidden');
+              button.setAttribute('aria-expanded', 'false');
+              if (icon) {
+                icon.style.transform = 'rotate(0deg)';
+              }
+            }
+          }
+        });
+      }
+    });
+    
+    // Handle resize to show/hide appropriate menu
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) { // lg breakpoint
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          menuIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+          menuToggle?.setAttribute('aria-expanded', 'false');
+          
+          // Reset all dropdowns on desktop
+          document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach(dropdown => {
+            const button = dropdown.querySelector<HTMLButtonElement>('button[aria-expanded="true"]');
+            if (button) {
+              const targetId = button.getAttribute('aria-controls');
+              if (!targetId) return;
+              
+              const target = document.getElementById(targetId);
+              const icon = button.querySelector<SVGSVGElement>('svg');
+              if (target) {
+                target.classList.add('hidden');
+                button.setAttribute('aria-expanded', 'false');
+                if (icon) {
+                  icon.style.transform = 'rotate(0deg)';
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', mobileMenuSetup);
+</script>

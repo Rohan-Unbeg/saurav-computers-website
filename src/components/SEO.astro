@@ -1,0 +1,150 @@
+---
+import { getImage } from 'astro:assets';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  section?: string;
+  tags?: string[];
+  noindex?: boolean;
+  nofollow?: boolean;
+}
+
+const {
+  title = 'Saurav Computer - IT Training & Digital Services in Shendurjan',
+  description = 'Saurav Computer offers certified IT training courses, SBI Kiosk Banking, and Aaple Seva Kendra services in Shendurjan, Maharashtra.',
+  image = '/images/og-image.jpg',
+  canonicalURL,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author = 'Saurav Computer',
+  section,
+  tags = [],
+  noindex = false,
+  nofollow = false,
+} = Astro.props;
+
+const siteURL = Astro.site?.toString() || 'https://sauravcomputer.com';
+const pageURL = canonicalURL ? new URL(canonicalURL, siteURL).toString() : Astro.url.toString();
+const ogImage = new URL(image, siteURL).toString();
+const fullDescription = description.length > 155 ? description.substring(0, 152) + '...' : description;
+
+// Generate robots meta content
+const robots = [];
+if (noindex) robots.push('noindex');
+if (nofollow) robots.push('nofollow');
+if (robots.length === 0) robots.push('index, follow');
+
+// Generate canonical URL
+const canonical = canonicalURL ? new URL(canonicalURL, siteURL).toString() : Astro.url.toString();
+
+// Generate schema.org JSON-LD
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "#organization",
+  "name": "Saurav Computer",
+  "url": siteURL,
+  "logo": new URL("/images/logo.png", siteURL).toString(),
+  "description": "Certified computer training institute and CSC provider offering IT courses, SBI Kiosk Banking, and Aaple Seva Kendra services in Shendurjan, Maharashtra.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shendurjan",
+    "addressLocality": "Sindkhed Raja",
+    "addressRegion": "Buldana",
+    "postalCode": "443202",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+919823779796",
+    "contactType": "customer service",
+    "email": "sauravcomputer@gmail.com",
+    "availableLanguage": ["en", "mr"]
+  },
+  "sameAs": [
+    "https://www.facebook.com/sauravcomputershendurjan",
+    "https://www.instagram.com/amolsarade/"
+  ]
+};
+
+const articleSchema = type === 'article' && publishedTime ? {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": fullDescription,
+  "image": ogImage,
+  "author": {
+    "@type": "Person",
+    "name": author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Saurav Computer",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/images/logo.png", siteURL).toString()
+    }
+  },
+  "datePublished": publishedTime,
+  "dateModified": modifiedTime || publishedTime,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": pageURL
+  }
+} : null;
+---
+
+<!-- Primary Meta Tags -->
+<title>{title} | {title.includes('Saurav Computer') ? '' : 'Saurav Computer'}</title>
+<meta name="title" content={title} />
+<meta name="description" content={fullDescription} />
+<meta name="robots" content={robots.join(', ')} />
+<meta name="author" content={author} />
+<meta name="keywords" content={
+  ['IT Training', 'Computer Courses', 'SBI Kiosk Banking', 'Aaple Seva Kendra', 'Shendurjan', 'Maharashtra', ...tags].join(', ')
+} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={pageURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={fullDescription} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Saurav Computer" />
+<meta property="og:locale" content="en_IN" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={pageURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={fullDescription} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:site" content="@sauravcomputer" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonical} />
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Preconnect to important domains -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema, null, 2)} />
+
+{articleSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema, null, 2)} />
+)}

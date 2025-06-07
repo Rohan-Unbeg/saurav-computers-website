@@ -1,0 +1,45 @@
+---
+interface Props {
+  label: string;
+  value: string | number | boolean | null | undefined;
+  icon: string;
+  highlight?: boolean;
+}
+
+const { label, value, icon, highlight = false } = Astro.props;
+
+// Format the value for display
+const displayValue = (val: string | number | boolean | null | undefined): string => {
+  if (val === null || val === undefined) return 'N/A';
+  if (typeof val === 'boolean') return val ? 'Yes' : 'No';
+  return String(val);
+};
+---
+
+<div class={`group flex items-start p-3 rounded-lg transition-all duration-200 ${
+  highlight 
+    ? 'bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/30' 
+    : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
+}`}>
+  <div class={`flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full ${
+    highlight 
+      ? 'bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-300' 
+      : 'text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700'
+  }`} set:html={icon}></div>
+  <div class="ml-3 min-w-0 flex-1">
+    <p class={`text-xs font-semibold uppercase tracking-wider ${
+      highlight 
+        ? 'text-indigo-600 dark:text-indigo-400' 
+        : 'text-gray-500 dark:text-gray-400'
+    }`}>
+      {label}
+    </p>
+    <p class={`mt-0.5 text-sm font-medium ${
+      highlight 
+        ? 'text-indigo-900 dark:text-indigo-50' 
+        : 'text-gray-900 dark:text-gray-100'
+    } truncate`}>
+      {displayValue(value)}
+    </p>
+  </div>
+</div>

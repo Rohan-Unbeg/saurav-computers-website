@@ -1,0 +1,28 @@
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
+import CourseModal from './CourseModal.jsx';
+import type { MKCLCourse } from '../../data/mkcl-courses';
+
+interface Props {
+  courses: MKCLCourse[];
+}
+
+const CourseModalIsland = forwardRef(({ courses }: Props, ref) => {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<MKCLCourse | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    openModal: (courseId: string) => {
+      const course = courses.find(c => c.id === courseId) || null;
+      setSelected(course);
+      setOpen(true);
+    },
+    closeModal: () => {
+      setOpen(false);
+      setSelected(null);
+    }
+  }));
+
+  return <CourseModal course={selected} open={open} onClose={() => setOpen(false)} />;
+});
+
+export default CourseModalIsland; 

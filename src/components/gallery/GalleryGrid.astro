@@ -1,0 +1,183 @@
+---
+// Define interface for image/video objects
+interface GalleryMedia {
+  src: string;
+  alt: string;
+  caption: string;
+  type?: 'image' | 'video'; // Optional, defaults to image
+  poster?: string; // Optional poster for video
+}
+
+// Define props interface
+interface Props {
+  images: GalleryMedia[];
+}
+
+const { images } = Astro.props as Props;
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {images.map((media, index) => (
+    <div 
+      class="gallery-item rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-500"
+      data-aos="fade-up"
+      data-aos-delay={100 + (index * 50)}
+      data-src={media.src}
+      data-caption={media.caption}
+      data-type={media.type || 'image'}
+    >
+      <div class="relative overflow-hidden group h-64">
+        {media.type === 'video' ? (
+          <video 
+            src={media.src} 
+            class="w-full h-full object-cover bg-black" 
+            controls={false} 
+            muted 
+            playsinline
+            poster="/images/gallery/video-poster.jpg"
+          />
+        ) : (
+          <img 
+            src={media.src} 
+            alt={media.alt} 
+            class="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+        )}
+        <div class="absolute inset-0 bg-black bg-opacity-10 group-hover:bg-opacity-30 transition duration-300"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t from-black/60 to-transparent">
+          <p class="text-sm font-medium">{media.caption}</p>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+          <div class="w-12 h-12 rounded-full bg-primary-500 bg-opacity-90 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
+            {/* Show play icon for video, magnifier for image */}
+            {media.type === 'video' ? (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-5.197-3.027A1 1 0 008 9.027v5.946a1 1 0 001.555.832l5.197-3.027a1 1 0 000-1.664z" /></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center" style="display:none;">
+  <button id="close-lightbox" class="absolute top-4 right-4 text-white p-2 rounded-full hover:bg-white/10 transition z-20" aria-label="Close lightbox">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+  <button id="prev-image" class="absolute left-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full hover:bg-white/10 transition z-20" aria-label="Previous image">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <div class="relative w-full h-full max-w-6xl max-h-[90vh] flex items-center justify-center p-4">
+    <img id="lightbox-image" src="" alt="" class="max-w-full max-h-full object-contain hidden" />
+    <video id="lightbox-video" class="max-w-full max-h-full object-contain hidden" controls playsinline></video>
+    <p id="lightbox-caption" class="absolute bottom-4 left-0 right-0 text-center text-white text-sm bg-black/50 py-1 px-2"></p>
+  </div>
+  <button id="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full hover:bg-white/10 transition z-20" aria-label="Next image">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement | null;
+    const lightboxVideo = document.getElementById('lightbox-video') as HTMLVideoElement | null;
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeLightbox = document.getElementById('close-lightbox');
+    const prevImage = document.getElementById('prev-image');
+    const nextImage = document.getElementById('next-image');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    if (!lightbox || !lightboxImage || !lightboxVideo || !lightboxCaption || !closeLightbox || !prevImage || !nextImage) {
+      console.error('Required lightbox elements not found');
+      return;
+    }
+    let currentImageIndex = 0;
+    const images = Array.from(galleryItems).map(item => ({
+      src: item.getAttribute('data-src') || '',
+      caption: item.getAttribute('data-caption') || '',
+      type: item.getAttribute('data-type') || 'image',
+    }));
+    function updateLightboxContent() {
+      const imageData = images[currentImageIndex];
+      if (!imageData || !lightboxImage || !lightboxVideo || !lightboxCaption) return;
+      if (imageData.type === 'video') {
+        lightboxImage.classList.add('hidden');
+        lightboxVideo.classList.remove('hidden');
+        lightboxVideo.src = imageData.src;
+        lightboxVideo.setAttribute('aria-label', imageData.caption);
+        lightboxCaption.textContent = imageData.caption;
+      } else {
+        lightboxVideo.classList.add('hidden');
+        lightboxImage.classList.remove('hidden');
+        lightboxImage.src = imageData.src;
+        lightboxImage.alt = imageData.caption;
+        lightboxCaption.textContent = imageData.caption;
+      }
+    }
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        currentImageIndex = index;
+        updateLightboxContent();
+        lightbox.style.display = 'flex';
+        document.body.classList.add('overflow-hidden');
+      });
+    });
+    closeLightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      document.body.classList.remove('overflow-hidden');
+      if (lightboxVideo) lightboxVideo.pause();
+    });
+    const navigate = (direction: 'prev' | 'next') => {
+      currentImageIndex = direction === 'prev' 
+        ? (currentImageIndex - 1 + images.length) % images.length
+        : (currentImageIndex + 1) % images.length;
+      updateLightboxContent();
+    };
+    prevImage.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigate('prev');
+    });
+    nextImage.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigate('next');
+    });
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightbox.style.display === 'none') return;
+      switch(e.key) {
+        case 'Escape':
+          lightbox.style.display = 'none';
+          document.body.classList.remove('overflow-hidden');
+          if (lightboxVideo) lightboxVideo.pause();
+          break;
+        case 'ArrowLeft':
+          navigate('prev');
+          break;
+        case 'ArrowRight':
+          navigate('next');
+          break;
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+        document.body.classList.remove('overflow-hidden');
+        if (lightboxVideo) lightboxVideo.pause();
+      }
+    });
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  });
+</script>

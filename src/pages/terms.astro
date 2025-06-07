@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+// SEO details
+const seoTitle = "Terms & Conditions - Saurav Computer";
+const seoDescription = "Read our Terms & Conditions to understand the rules and guidelines for using our website and services at Saurav Computer.";
+
+// Breadcrumbs
+const breadcrumbs = [
+  { title: "Home", url: "/" },
+  { title: "Terms & Conditions", url: "/terms-conditions" }
+];
+
+const effectiveDate = "June 6, 2024";
+---
+
+<Layout title={seoTitle} description={seoDescription}>
+  <PageHeader 
+    title="Terms & Conditions" 
+    subtitle={"Effective: " + effectiveDate} 
+    breadcrumbs={breadcrumbs} 
+  />
+
+  <div class="container mx-auto px-4 py-12 max-w-4xl">
+    <div class="prose prose-lg max-w-none">
+      <section class="mb-8">
+        <p class="text-gray-600 dark:text-gray-300">
+          Welcome to Saurav Computer. By accessing our website and using our services, you agree to be bound by these Terms & Conditions. Please read them carefully before using our services.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">1. Services</h2>
+        <p class="mb-4">
+          Saurav Computer provides computer training courses, SBI Kiosk Banking services, and Aaple Seva Kendra services. All services are subject to availability and may be modified or discontinued at our discretion.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">2. Course Registration and Payment</h2>
+        <ul class="list-disc pl-6 mb-4 space-y-2">
+          <li>Course registration is complete only after full payment of fees</li>
+          <li>Fees are non-refundable except as required by law or at our discretion</li>
+          <li>We reserve the right to refuse service to anyone for any reason at any time</li>
+          <li>Course materials and certificates will only be provided upon full payment</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">3. Student Conduct</h2>
+        <p class="mb-4">Students are expected to:</p>
+        <ul class="list-disc pl-6 mb-4 space-y-2">
+          <li>Maintain proper decorum and respect for staff and fellow students</li>
+          <li>Attend classes regularly and complete assignments on time</li>
+          <li>Not damage or misuse institute property</li>
+          <li>Follow all institute rules and regulations</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">4. Intellectual Property</h2>
+        <p class="mb-4">
+          All course materials, including but not limited to study materials, presentations, and online content, are the intellectual property of Saurav Computer and may not be reproduced, distributed, or used for commercial purposes without written permission.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">5. Limitation of Liability</h2>
+        <p class="mb-4">
+          Saurav Computer shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from:
+        </p>
+        <ul class="list-disc pl-6 mb-4 space-y-2">
+          <li>Your use or inability to use our services</li>
+          <li>Any unauthorized access to or use of our servers and/or personal information</li>
+          <li>Any interruption or cessation of transmission to or from our services</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">6. Changes to Terms</h2>
+        <p class="mb-4">
+          We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting on our website. Your continued use of our services constitutes acceptance of the modified terms.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">7. Governing Law</h2>
+        <p class="mb-4">
+          These terms shall be governed by and construed in accordance with the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Shendurjan, Maharashtra.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">8. Contact Information</h2>
+        <p>
+          For any questions about these Terms & Conditions, please contact us at:
+          <br />
+          <a href="mailto:sauravcomputer@gmail.com" class="text-primary-600 hover:underline">sauravcomputer@gmail.com</a>
+          <br />
+          <a href="tel:+919823779796" class="text-primary-600 hover:underline">+91 9823779796</a>
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>

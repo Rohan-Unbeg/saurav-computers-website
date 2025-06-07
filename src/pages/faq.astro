@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Accordion from '../components/faq/Accordion.astro';
+
+// SEO details
+const seoTitle = "FAQs - Saurav Computer | Frequently Asked Questions";
+const seoDescription = "Find answers to frequently asked questions about courses, SBI Kiosk Banking, and Aaple Seva Kendra services at Saurav Computer in Shendurjan.";
+
+// Breadcrumbs
+const breadcrumbs = [
+  { title: "Home", url: "/" },
+  { title: "Resources", url: "#" },
+  { title: "FAQ", url: "/faq" }
+];
+
+// FAQ Categories and Questions
+const faqCategories = [
+  {
+    category: "IT Courses",
+    questions: [
+      {
+        question: "What is MS-CIT and why should I enroll?",
+        answer: "MS-CIT (Maharashtra State Certificate in Information Technology) is a basic computer literacy course recognized by the Government of Maharashtra. You should enroll if you want to gain essential computer skills for employment opportunities, further education, or digital literacy. The certification is widely recognized across Maharashtra for government and private sector jobs."
+      },
+      {
+        question: "How long does it take to complete the Tally course?",
+        answer: "Our Tally course typically takes 2 months to complete with regular classes. The course covers Tally ERP 9 and Tally Prime features, including GST compliance, inventory management, and financial reporting. We offer flexible timings to accommodate working professionals and students."
+      },
+      {
+        question: "Do I need prior knowledge of computers to join your courses?",
+        answer: "No prior knowledge is required for our basic courses like MS-CIT. We start from the fundamentals and gradually progress to more advanced topics. However, for specialized courses like programming languages or advanced Tally modules, basic computer knowledge is beneficial."
+      },
+      {
+        question: "What documents are required for course enrollment?",
+        answer: "For course enrollment, you need a valid ID proof (Aadhaar card, PAN card, etc.), passport-size photographs, and educational qualification documents (varies by course). You'll also need to complete our registration form and pay the course fees."
+      },
+      {
+        question: "Do you provide job placement assistance after course completion?",
+        answer: "Yes, we provide basic job placement assistance by sharing information about local job opportunities related to your course. We also help with resume preparation and maintain connections with local businesses for potential placements."
+      }
+    ]
+  },
+  {
+    category: "SBI Kiosk Banking",
+    questions: [
+      {
+        question: "How do I open a no-frills SBI account through your center?",
+        answer: "To open a no-frills SBI account, visit our center with your Aadhaar card, a recent photograph, and a mobile number linked to Aadhaar. Our staff will guide you through the biometric verification process and account opening procedure. The entire process takes about 30 minutes."
+      },
+      {
+        question: "What is the maximum balance I can maintain in a no-frills account?",
+        answer: "No-frills accounts have a maximum balance limit of ₹50,000. These accounts also have a daily transaction limit of ₹10,000. If you need higher limits, we can help you upgrade to a regular SBI account through the nearest branch."
+      },
+      {
+        question: "Can I withdraw money from any SBI account at your kiosk?",
+        answer: "Yes, you can withdraw money from any SBI account at our kiosk, provided you are the account holder and complete the necessary biometric verification. The daily withdrawal limit is ₹10,000 for no-frills accounts and may vary for other account types."
+      },
+      {
+        question: "What are the operating hours for SBI Kiosk Banking services?",
+        answer: "Our SBI Kiosk Banking services are available from 9:00 AM to 7:00 PM Monday through Friday, and from 9:00 AM to 5:00 PM on Saturday. This provides extended banking hours compared to traditional bank branches."
+      },
+      {
+        question: "Can I transfer money to non-SBI accounts through your kiosk?",
+        answer: "Our kiosk primarily facilitates transfers between SBI accounts. For transfers to non-SBI accounts, we recommend using the SBI mobile banking app or visiting the nearest SBI branch for NEFT/RTGS services."
+      }
+    ]
+  },
+  {
+    category: "Aaple Seva Kendra",
+    questions: [
+      {
+        question: "How can I get a 7/12 extract (land record) from your center?",
+        answer: "To obtain a 7/12 extract, visit our center with your Aadhaar card, details of the land (survey number, village name), and the required fee. Our staff will process your application through the Aaple Sarkar portal, and you'll receive the certified document as per government processing times."
+      },
+      {
+        question: "What certificates can I apply for at your Aaple Seva Kendra?",
+        answer: "Through our Aaple Seva Kendra, you can apply for various certificates including income certificates, domicile certificates, caste certificates, birth/death certificates, non-creamy layer certificates, solvency certificates, and residence certificates among others."
+      },
+      {
+        question: "How long does it take to process government certificates?",
+        answer: "Processing times vary depending on the type of certificate. Some certificates like income certificates may be processed in 7-10 working days, while others might take longer based on government verification procedures. We'll provide you with an estimated timeline when you apply."
+      },
+      {
+        question: "Can I book MSRTC bus tickets through your center?",
+        answer: "Yes, you can book Maharashtra State Road Transport Corporation (MSRTC) bus tickets through our Aaple Seva Kendra. Simply provide your journey details, identification, and make the payment to receive your confirmed booking."
+      },
+      {
+        question: "What are the charges for MahaOnline services at your center?",
+        answer: "The charges include the government fee for the specific service plus a nominal service charge as authorized by MahaOnline. The exact amount varies by service type. We'll provide you with a detailed breakdown of charges before processing your request."
+      }
+    ]
+  },
+  {
+    category: "General Questions",
+    questions: [
+      {
+        question: "What are your center's operating hours?",
+        answer: "Our center operates from 9:00 AM to 7:00 PM Monday through Friday, and from 9:00 AM to 5:00 PM on Saturday. We are closed on Sundays and major government holidays."
+      },
+      {
+        question: "Do you offer any discounts for students or special groups?",
+        answer: "Yes, we offer special discounts for economically disadvantaged students, differently-abled individuals, and group enrollments. Please inquire at our center for current discount offers and eligibility criteria."
+      },
+      {
+        question: "Is there a payment plan available for course fees?",
+        answer: "Yes, we offer flexible payment plans for most courses. Typically, students can pay in 2-3 installments spread over the course duration. Please discuss with our counselor to arrange a payment schedule that works for you."
+      },
+      {
+        question: "How can I provide feedback about your services?",
+        answer: "We welcome feedback through multiple channels. You can fill out our feedback form at the center, use the contact form on our website, or speak directly with our Center Head, Mr. Amol Sarade. Your feedback helps us improve our services."
+      },
+      {
+        question: "Do you provide any services in Marathi language?",
+        answer: "Yes, all our services are available in both Marathi and English. Our staff is fully bilingual, and course materials are available in Marathi for most courses. Government services documentation is also processed in Marathi as per state government requirements."
+      }
+    ]
+  }
+];
+---
+
+<Layout title={seoTitle} description={seoDescription}>
+  <PageHeader 
+    title="Frequently Asked Questions" 
+    subtitle="Find answers to common questions about our courses and services"
+    imageUrl="https://images.pexels.com/photos/5428829/pexels-photo-5428829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    breadcrumbs={breadcrumbs}
+  />
+  
+  <section class="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-900/50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <p class="text-lg text-gray-700 dark:text-gray-300 text-center mb-12 bg-white/80 dark:bg-gray-800/80 rounded-lg p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-700 mx-4 sm:mx-0" data-aos="fade-up">
+          Browse through our frequently asked questions to find information about our IT courses, SBI Kiosk Banking services, and Aaple Seva Kendra operations. If you don't find what you're looking for, please <a href="/contact" class="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors">contact us</a>.
+        </p>
+        
+        <div class="space-y-12">
+          {faqCategories.map((category, index) => (
+            <div data-aos="fade-up" data-aos-delay={index * 100}>
+              <h2 class="text-2xl font-bold text-black dark:text-white mb-6">{category.category}</h2>
+              <div class="space-y-4">
+                {category.questions.map((faq, faqIndex) => (
+                  <Accordion 
+                    question={faq.question} 
+                    answer={faq.answer}
+                    index={`${index}-${faqIndex}`}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Still Have Questions -->
+  <section class="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-indigo-800 to-purple-900 text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold mb-4">Still Have Questions?</h2>
+        <p class="text-lg mb-8 opacity-90">
+          If you couldn't find the answer to your question, please don't hesitate to reach out to us directly. Our team is always ready to help.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
+          <a href="/contact" class="btn-primary bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-indigo-500 transition-all duration-300">
+            Contact Us
+          </a>
+          <a href="tel:+919823779796" class="btn-outline border-2 border-white text-white hover:bg-white/10 font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-white/50 transition-all duration-300 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Call Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

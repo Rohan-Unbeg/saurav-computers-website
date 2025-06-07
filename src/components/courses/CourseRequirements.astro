@@ -1,0 +1,35 @@
+---
+interface CourseRequirementsProps {
+  requirements: string[];
+  title?: string;
+  description?: string;
+}
+
+const { 
+  requirements = [], 
+  title = 'Requirements',
+  description = 'What you need to get started with this course'
+} = Astro.props;
+---
+
+<div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
+  <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
+    {description && (
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{description}</p>
+    )}
+  </div>
+  
+  <div class="p-6">
+    <ul class="space-y-3">
+      {requirements.map((requirement) => (
+        <li class="flex items-start">
+          <svg class="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-gray-700 dark:text-gray-300">{requirement}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

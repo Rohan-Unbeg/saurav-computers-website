@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+// SEO details
+const seoTitle = "Meet Our Team - Saurav Computer Staff";
+const seoDescription = "Meet our dedicated team at Saurav Computer led by Center Head Amol Sarade, providing expert guidance in IT training and digital services in Shendurjan.";
+
+// Breadcrumbs
+const breadcrumbs = [
+  { title: "Home", url: "/" },
+  { title: "About", url: "#" },
+  { title: "Staff", url: "/staff" }
+];
+
+// Staff members with more detailed information
+const staffMembers = [
+  {
+    name: "Amol Sarade",
+    role: "Center Head",
+    image: "/images/staff/amolsarde.jpg",
+    bio: "Amol brings over 10 years of experience in IT education and digital service delivery. As the Center Head, he oversees all operations at Saurav Computer while maintaining quality standards across all services. He holds an MCA degree and multiple IT certifications.",
+    expertise: ["IT Training", "SBI Kiosk Banking", "CSC Management", "Educational Counseling"],
+    education: "Master of Computer Applications (MCA)"
+  },
+  {
+    name: "Pandurang Changle",
+    role: "Center Coordinator",
+    image: "/images/staff/pandurangchangle.jpg",
+    bio: "Pandurang ensures smooth day-to-day operations at the center. With his meticulous attention to detail, he coordinates between different service areas and maintains service quality standards. He has 5+ years of experience in operations management.",
+    expertise: ["Operations Management", "Customer Service", "SBI Kiosk Operations", "MahaOnline Services"],
+    education: "Bachelor of Commerce (B.Com)"
+  },
+  {
+    name: "Swati Sarde",
+    role: "Counselor",
+    image: "/images/staff/SWATI.jpg",
+    bio: "Swati helps students identify their strengths and choose the right courses for their career goals. With her background in education and psychology, she provides valuable guidance to students from diverse backgrounds and age groups.",
+    expertise: ["Career Counseling", "Course Selection", "Student Mentoring", "Community Outreach"],
+    education: "Bachelor of Education (B.Ed)"
+  }
+];
+---
+
+<Layout title={seoTitle} description={seoDescription}>
+  <PageHeader 
+    title="Meet Our Team" 
+    subtitle="The dedicated professionals behind Saurav Computer's services"
+    imageUrl="https://images.pexels.com/photos/3184394/pexels-photo-3184394.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    breadcrumbs={breadcrumbs}
+  />
+  
+  <!-- Team Overview -->
+  <section class="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4 dark:text-white">Our Dedicated Team</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-400">
+          At Saurav Computer, our team of professionals is committed to providing quality education and digital services. Each member brings unique skills and expertise to ensure the best experience for our students and customers.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {staffMembers.map((member, index) => (
+          <div 
+            class="card-alt rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col h-full"
+            data-aos="fade-up"
+            data-aos-delay={100 + (index * 100)}
+          >
+            <div class="relative pt-[100%] overflow-hidden">
+              <img 
+                src={member.image} 
+                alt={`Photo of ${member.name}`} 
+                class="absolute top-0 left-0 w-full h-full object-cover object-center"
+                loading="lazy"
+                width="400"
+                height="500"
+              />
+            </div>
+            
+            <div class="p-5 sm:p-6 flex-1 flex flex-col">
+              <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-1">{member.name}</h3>
+              <p class="text-primary-500 dark:text-primary-400 font-medium text-sm sm:text-base mb-3">{member.role}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base mb-4">{member.bio}</p>
+              
+              <div class="mt-auto">
+                <h4 class="font-semibold text-gray-900 dark:text-gray-200 text-sm sm:text-base mb-2">Expertise:</h4>
+                <ul class="text-sm space-y-1">
+                  {member.expertise.map(skill => (
+                    <li class="flex items-center">
+                      <svg class="h-3 w-3 sm:h-4 sm:w-4 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span class="text-gray-700 dark:text-gray-400 text-sm">{skill}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Join Our Team -->
+  <section class="py-16 bg-gradient-to-r from-indigo-800 to-purple-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold mb-4 text-white">Join Our Team</h2>
+        <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+          We're always looking for talented and passionate individuals to join our team. If you have expertise in IT education, banking services, or government documentation processes, we'd love to hear from you.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-indigo-500 transition-all duration-300"
+          >
+            Contact for Career Opportunities
+          </a>
+          <a 
+            href="tel:+919823779796" 
+            class="border-2 border-white text-white hover:bg-white/10 font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-white/50 transition-all duration-300 flex items-center justify-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Call Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

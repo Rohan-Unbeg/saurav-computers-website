@@ -1,0 +1,72 @@
+---
+// Staff data
+const staffMembers = [
+  {
+    name: "Amol Sarade",
+    role: "Center Head",
+    image: "/images/staff/amolsarde.jpg",
+    bio: "Leading Saurav Computer with expertise in IT training and digital service delivery."
+  },
+  {
+    name: "Pandurang Changle",
+    role: "Center Coordinator",
+    image: "/images/staff/pandurangchangle.jpg",
+    bio: "Coordinating all center activities and ensuring smooth operations of our services."
+  },
+  {
+    name: "Swati Sarde",
+    role: "Counselor",
+    image: "/images/staff/SWATI.jpg",
+    bio: "Providing career guidance and helping students choose the right courses for their goals."
+  }
+];
+---
+
+<section class="section py-8 sm:py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10" data-aos="fade-up">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">
+        Meet Our Team
+      </h2>
+      <p class="text-sm sm:text-base text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
+        Our dedicated professionals are committed to providing quality education and digital services to the community.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      {staffMembers.map((member, index) => (
+        <div 
+          class="card-alt rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col h-full w-88 mx-auto"
+          data-aos="fade-up"
+          data-aos-delay={100 + (index * 100)}
+        >
+          <div class="relative w-full bg-gray-100 dark:bg-gray-800 flex-1 flex items-center justify-center p-5">
+            <img 
+              src={member.image} 
+              alt={`Photo of ${member.name}`} 
+              class="w-full h-auto max-h-[28rem] object-contain mx-auto"
+              loading="lazy"
+              width="400"
+              height="533"
+            />
+          </div>
+          
+          <div class="p-5 text-center">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1.5">{member.name}</h3>
+            <p class="text-primary-500 font-medium text-base mb-2.5">{member.role}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-base">{member.bio}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="text-center mt-8 sm:mt-10">
+      <a href="/staff" class="inline-flex items-center border-2 border-primary-600 text-primary-600 hover:bg-primary-50 font-semibold py-2 px-4 rounded-lg text-sm focus:ring-4 focus:ring-primary-500/20 transition-all duration-300">
+        View All Staff
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

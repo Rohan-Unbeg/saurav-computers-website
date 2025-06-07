@@ -1,0 +1,65 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  imageUrl?: string;
+  breadcrumbs?: Array<{title: string, url: string}>;
+}
+
+const { 
+  title, 
+  subtitle, 
+  imageUrl = "https://images.pexels.com/photos/7103164/pexels-photo-7103164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  breadcrumbs = [] 
+} = Astro.props;
+---
+
+<div class="relative bg-primary-900 text-white">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src={imageUrl} 
+      alt="" 
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+    <!-- Gradient overlay for light mode -->
+    <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 to-purple-950 opacity-90 lg:opacity-80"></div>
+    <!-- Dark overlay for dark mode -->
+    <div class="absolute inset-0 bg-black opacity-60 dark:opacity-70"></div>
+  </div>
+  
+  <!-- Content -->
+  <div class="container mx-auto px-4 relative z-10 py-16 sm:py-20 md:py-24 lg:pt-36">
+    {breadcrumbs.length > 0 && (
+      <nav class="mb-6 sm:mb-8 md:mb-10 pt-6 sm:pt-8 md:pt-10" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center text-sm sm:text-base">
+          {breadcrumbs.map((crumb, i) => (
+            <li class="flex items-center">
+              {i < breadcrumbs.length - 1 ? (
+                <>
+                  <a href={crumb.url} class="text-gray-300 hover:text-accent-500">
+                    {crumb.title}
+                  </a>
+                  <svg class="h-4 w-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </>
+              ) : (
+                <span class="text-white font-medium">{crumb.title}</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    
+    <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">{title}</h1>
+    
+    {subtitle && (
+      <p class="text-xl text-gray-100 max-w-3xl" data-aos="fade-up" data-aos-delay="100">
+        {subtitle}
+      </p>
+    )}
+  </div>
+</div>

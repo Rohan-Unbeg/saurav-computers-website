@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import BusinessIntro from '../components/home/BusinessIntro.astro';
+import FeaturedServices from '../components/home/FeaturedServices.astro';
+import StaffPreview from '../components/home/StaffPreview.astro';
+import CallToAction from '../components/home/CallToAction.astro';
+
+const seoTitle = "Saurav Computer - IT Training & Digital Services in Shendurjan";
+const seoDescription = "Saurav Computer: IT training, SBI Kiosk Banking, and Aaple Seva Kendra services in Shendurjan, Maharashtra";
+---
+
+<Layout title={seoTitle} description={seoDescription}>
+  <Hero />
+  <BusinessIntro />
+  <section class="section-alt">
+    <FeaturedServices />
+  </section>
+  <StaffPreview />
+  <section class="section-alt">
+    <CallToAction />
+  </section>
+</Layout>

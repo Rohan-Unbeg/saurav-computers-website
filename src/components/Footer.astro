@@ -1,0 +1,169 @@
+---
+import Logo from './Logo.astro';
+const currentYear = new Date().getFullYear();
+
+// Footer navigation sections
+const footerLinks = [
+  {
+    title: 'Services',
+    links: [
+      { name: 'IT Courses', path: '/courses' },
+      { name: 'SBI Kiosk Banking', path: '/sbi-kiosk' },
+      { name: 'Aaple Seva Kendra', path: '/aaple-seva' },
+    ]
+  },
+  {
+    title: 'About',
+    links: [
+      { name: 'Our Team', path: '/staff' },
+      { name: 'Gallery', path: '/gallery' },
+      { name: 'FAQ', path: '/faq' },
+    ]
+  },
+  {
+    title: 'Resources',
+    links: [
+      { name: 'Downloads', path: '/downloads' },
+      { name: 'Contact', path: '/contact' },
+      { name: 'Privacy Policy', path: '/privacy-policy' },
+      { name: 'Terms & Conditions', path: '/terms' },
+      { name: 'Sitemap', path: '/sitemap.xml' }
+    ]
+  }
+];
+
+// Social media links
+const socialLinks = [
+  { name: 'Facebook', url: 'https://www.facebook.com/sauravcomputershendurjan', icon: 'facebook' },
+  { name: 'Instagram', url: 'https://www.instagram.com/amolsarade/', icon: 'instagram' },
+  { name: 'WhatsApp', url: 'https://wa.me/919823779796', icon: 'whatsapp' },
+  { name: 'Email', url: 'mailto:sauravcomputer@gmail.com', icon: 'mail' },
+];
+---
+
+<footer class="bg-[var(--footer-bg)] text-[var(--footer-text)]" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-5 gap-x-4 gap-y-8">
+      <!-- Company Info -->
+      <div class="sm:col-span-2 lg:col-span-1 pr-8">
+        <Logo />
+        <p class="text-[var(--footer-link)] text-sm leading-relaxed max-w-xs mb-4 mt-2">
+          Certified computer training institute and CSC provider offering IT courses and banking services in Shendurjan, Maharashtra.
+        </p>
+        <div class="flex space-x-4 mt-4">
+          {socialLinks.map((social) => (
+            <a 
+              href={social.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ${
+                social.icon === 'facebook' ? 'bg-[#1877F2] hover:bg-[#0c64d3]' : 
+                social.icon === 'instagram' ? 'bg-gradient-to-br from-[#FF0066] via-[#f82] to-[#c32aa3] hover:from-[#FF1A75] hover:via-[#f93] hover:to-[#d83cb9]' :
+                social.icon === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#1fa952]' :
+                'bg-gray-600 hover:bg-gray-700'
+              } transform hover:scale-110 hover:shadow-lg`}
+              aria-label={social.name}
+              title={social.name}
+            >
+              <span class="sr-only">{social.name}</span>
+              <span class="text-white">
+                {social.icon === 'facebook' && (
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127c-.82-.088-1.643-.13-2.467-.127-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z"/>
+                  </svg>
+                )}
+                {social.icon === 'instagram' && (
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.509-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
+                  </svg>
+                )}
+                {social.icon === 'whatsapp' && (
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                )}
+                {social.icon === 'mail' && (
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 6.223-8-6.222V6h16zM4 18V9.044l7.386 5.745a.994.994 0 0 0 1.228 0L20 9.044 20.002 18H4z"/>
+                  </svg>
+                )}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Footer Navigation Links -->
+      {footerLinks.map((section) => (
+        <div class="text-left">
+          <h3 class="font-semibold text-[var(--footer-text)] text-base mb-3">{section.title}</h3>
+          <div class="flex flex-col space-y-2">
+            {section.links.map((link) => {
+              const isExternal = link.path.startsWith('http');
+              return (
+                <a 
+                  href={link.path} 
+                  class="text-[var(--footer-link)] hover:text-[var(--footer-link-hover)] transition-colors duration-200 text-sm block"
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                >
+                  {link.name}
+                  {isExternal && (
+                    <span class="sr-only">(opens in a new tab)</span>
+                  )}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+
+      <!-- Contact Information -->
+      <div class="text-left">
+        <h3 class="font-semibold text-[var(--footer-text)] text-base mb-2">Contact Us</h3>
+        <address class="not-italic text-sm text-[var(--footer-link)] space-y-1.5">
+          <div class="flex items-start">
+            <svg class="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-[var(--footer-icon)]" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Shendurjan, Sindkhed Raja, Buldana - 443202</span>
+          </div>
+          <div class="flex items-center">
+            <svg class="h-4 w-4 mr-2 flex-shrink-0 text-[var(--footer-icon)]" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+            </svg>
+            <div class="space-y-1">
+              <a href="tel:9823779796" class="hover:text-[var(--footer-link-hover)] transition-colors duration-200 flex items-center group">
+                98237 79796
+              </a>
+              <a href="tel:8275233774" class="hover:text-[var(--footer-link-hover)] transition-colors duration-200 flex items-center group">
+                82752 33774
+              </a>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <svg class="h-4 w-4 mr-2 flex-shrink-0 text-[var(--footer-icon)]" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+            </svg>
+            <a href="mailto:sauravcomputer@gmail.com" class="hover:text-[var(--footer-link-hover)] transition-colors duration-200 break-all">sauravcomputer@gmail.com</a>
+          </div>
+        </address>
+      </div>
+    </div>
+    
+    <!-- Copyright and Legal Links -->
+    <div class="mt-8 pt-6 border-t border-[var(--footer-text)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+      <p class="text-[var(--footer-link)] text-sm">
+        {currentYear} Saurav Computer. All rights reserved.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/privacy-policy" class="text-[var(--footer-link)] hover:text-[var(--footer-link-hover)] text-sm transition-colors duration-200 hover:underline">Privacy Policy</a>
+        <a href="/terms" class="text-[var(--footer-link)] hover:text-[var(--footer-link-hover)] text-sm transition-colors duration-200 hover:underline">Terms of Service</a>
+        <a href="/sitemap.xml" class="text-[var(--footer-link)] hover:text-[var(--footer-link-hover)] text-sm transition-colors duration-200 hover:underline">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

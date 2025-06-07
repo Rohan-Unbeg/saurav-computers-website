@@ -1,0 +1,243 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CourseCard from '../components/courses/CourseCard.astro';
+
+const courses = [
+  {
+    id: "ms-cit",
+    title: "MS-CIT",
+    duration: "3 months",
+    category: "Computer Basics",
+    description: "Maharashtra State Certificate in Information Technology - a basic computer literacy course recognized by the government.",
+    detailedDescription: "The MS-CIT course is designed to impart basic computer literacy and digital skills to students. It covers fundamental concepts of computers, operating systems, internet usage, and productivity tools like MS Office. The course is recognized by the Maharashtra State Board of Technical Education and is ideal for beginners looking to gain essential computer skills for personal and professional use.",
+    price: "₹4,500.00",
+    originalPrice: "₹5,500.00",
+    discount: "18% off",
+    outcomes: [
+      "Proficiency in Microsoft Office applications (Word, Excel, PowerPoint)",
+      "Basic internet navigation and email management skills",
+      "Understanding of computer fundamentals and hardware",
+      "Digital literacy certification recognized by the Maharashtra government"
+    ],
+    icon: "computer" as const,
+    featured: true,
+    slug: "/courses/ms-cit",
+    syllabus: [
+      "Introduction to Computers and Operating Systems",
+      "MS Word: Document Creation and Formatting",
+      "MS Excel: Spreadsheets and Formulas",
+      "MS PowerPoint: Presentation Skills",
+      "Internet Basics and Email Communication",
+      "Computer Security and Maintenance"
+    ],
+    requirements: [
+      "No prior computer knowledge required",
+      "Basic understanding of English language",
+      "Minimum 14 years of age"
+    ],
+    faqs: [
+      {
+        question: "Is this course recognized by the government?",
+        answer: "Yes, MS-CIT is recognized by the Maharashtra State Board of Technical Education."
+      },
+      {
+        question: "What is the duration of the course?",
+        answer: "The course duration is 3 months with flexible batch timings."
+      },
+      {
+        question: "Will I get a certificate after completion?",
+        answer: "Yes, you will receive a government-recognized certificate upon successful completion."
+      }
+    ],
+    startDate: "5th of every month",
+    schedule: "Weekday and weekend batches available (2 hours per day, 3 days a week)",
+    instructor: "Experienced computer trainers with 10+ years of experience",
+    level: "Beginner",
+    language: "English, Marathi, Hindi",
+    certificate: true,
+    maxStudents: 20,
+    enrolled: 15,
+    videoId: "dQw4w9WgXcQ" // Placeholder YouTube video ID
+  },
+  {
+    id: "gcc-tbc",
+    title: "GCC-TBC",
+    duration: "2 months",
+    category: "Typing Skills",
+    description: "Government Certificate in Computer Typing Basic Course for English and Marathi typing proficiency.",
+    detailedDescription: "The GCC-TBC (Government Certificate in Computer Typing - Basic Course) is designed to help students achieve proficiency in English and Marathi typing. This course is essential for government job applications that require typing certification. The curriculum focuses on touch typing techniques, speed building, and accuracy improvement.",
+    price: "₹4,700.00",
+    originalPrice: "₹5,500.00",
+    discount: "15% off",
+    outcomes: [
+      "Professional typing skills in English and Marathi",
+      "Government-recognized typing certification",
+      "Increased speed and accuracy in typing",
+      "Qualification for government positions requiring typing skills"
+    ],
+    icon: "keyboard" as const,
+    featured: true,
+    slug: "/courses/gcc-tbc",
+    syllabus: [
+      "Introduction to Typing and Keyboard Layout",
+      "Touch Typing Techniques",
+      "English Typing Practice",
+      "Marathi Typing (Mangal Font)",
+      "Speed and Accuracy Development",
+      "Official Typing Test Preparation"
+    ],
+    requirements: [
+      "Basic computer knowledge",
+      "Understanding of English/Marathi language",
+      "Minimum typing speed of 15 WPM recommended"
+    ],
+    faqs: [
+      {
+        question: "What is the minimum typing speed required for certification?",
+        answer: "The minimum required speed is 25 WPM for English and 20 WPM for Marathi."
+      },
+      {
+        question: "Is the certificate valid for government jobs?",
+        answer: "Yes, the certificate is recognized by the government for various job applications."
+      }
+    ],
+    startDate: "10th of every month",
+    schedule: "Flexible timings, 1.5 hours per day",
+    instructor: "Certified typing instructors",
+    level: "Beginner to Intermediate",
+    language: "English, Marathi",
+    certificate: true,
+    maxStudents: 15,
+    enrolled: 10,
+    videoId: "dQw4w9WgXcQ" // Placeholder YouTube video ID
+  },
+  {
+    id: "mkcl-klic-courses",
+    title: "MKCL Klic Courses",
+    duration: "Multiple Durations",
+    category: "Professional Development",
+    description: "Explore our comprehensive range of MKCL programs including MS-CIT, GCC-TBC, and more. Government-recognized certifications.",
+    detailedDescription: "Maharashtra Knowledge Corporation Limited (MKCL) offers a wide range of professional development and digital literacy programs. Our MKCL programs are designed to provide industry-relevant skills and government-recognized certifications. From basic computer literacy to advanced professional courses, we have programs suitable for all skill levels.",
+    price: "Starting at ₹2,500.00",
+    originalPrice: "",
+    discount: "Special rates available",
+    outcomes: [
+      "Government-recognized certifications",
+      "Over 30+ specialized programs",
+      "Flexible learning options",
+      "Industry-relevant curriculum",
+      "Job placement assistance"
+    ],
+    icon: "certificate" as const,
+    featured: true,
+    slug: "/courses/mkcl-programs",
+    syllabus: [
+      "MS-CIT - Maharashtra State Certificate in IT",
+      "GCC-TBC - Government Certificate in Computer Typing",
+      "DCA - Diploma in Computer Applications",
+      "ADCA - Advanced Diploma in Computer Applications",
+      "Digital Marketing Courses",
+      "And many more specialized programs"
+    ],
+    requirements: [
+      "Varies by program",
+      "Basic computer knowledge recommended"
+    ],
+    faqs: [
+      {
+        question: "What programs are available?",
+        answer: "We offer over 30+ programs including MS-CIT, GCC-TBC, DCA, ADCA, and more. Visit our MKCL Programs page for details."
+      },
+      {
+        question: "Are these programs government-recognized?",
+        answer: "Yes, all our MKCL programs are recognized by the Government of Maharashtra and other relevant authorities."
+      },
+      {
+        question: "Is there any financial assistance available?",
+        answer: "Yes, we offer various scholarship and installment options. Contact us for more information."
+      }
+    ],
+    startDate: "Rolling admissions",
+    schedule: "Flexible batches available",
+    instructor: "MKCL certified trainers",
+    level: "All Levels",
+    language: "English, Marathi, Hindi",
+    certificate: true,
+    maxStudents: 20,
+    enrolled: 42,
+    videoId: "dQw4w9WgXcQ" // Placeholder YouTube video ID
+  },
+
+];
+
+// SEO details
+const seoTitle = "IT Courses at Saurav Computer - Career-Oriented Training Programs";
+const seoDescription = "Explore our comprehensive IT training courses including MS-CIT, GCC-TBC, and programming languages. Get certified and enhance your career prospects.";
+
+// Breadcrumbs
+const breadcrumbs = [
+  { title: "Home", url: "/" },
+  { title: "Courses", url: "/courses" }
+];
+---
+
+<Layout title={seoTitle} description={seoDescription}>
+  <PageHeader 
+    title="Our Courses" 
+    subtitle="Comprehensive IT training programs designed to build your career"
+    imageUrl="https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    breadcrumbs={breadcrumbs}
+  />
+  
+  <section class="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4 dark:text-white">Career-Oriented IT Training</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-400">
+          Our professionally designed courses equip students with in-demand digital skills for today's competitive job market. 
+          All courses are taught by certified instructors in a modern learning environment.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {courses.map((course, index) => (
+          <CourseCard 
+            course={course} 
+            index={index} 
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-16 bg-gradient-to-r from-indigo-800 to-purple-900 text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Ready to Start Your Digital Journey?</h2>
+        <p class="text-xl text-gray-100 mb-8 max-w-3xl mx-auto">
+          Take the next step in your digital journey. Browse our courses and enroll today to start learning.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="#courses" 
+            class="btn-primary bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-indigo-500 transition-all duration-300"
+          >
+            Explore Courses
+          </a>
+          <a 
+            href="/contact" 
+            class="btn-outline border-2 border-white text-white hover:bg-white/10 font-semibold py-3 px-6 rounded-lg focus:ring-4 focus:ring-white/50 transition-all duration-300 flex items-center justify-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

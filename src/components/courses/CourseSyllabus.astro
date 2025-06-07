@@ -1,0 +1,43 @@
+---
+interface CourseSyllabusProps {
+  syllabus: string[];
+  title?: string;
+  description?: string;
+}
+
+const { 
+  syllabus = [], 
+  title = 'Course Curriculum',
+  description = 'A comprehensive breakdown of what you\'ll learn in this course'
+} = Astro.props;
+---
+
+<div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
+  <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
+    {description && (
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{description}</p>
+    )}
+  </div>
+  
+  <div class="divide-y divide-gray-100 dark:divide-gray-700">
+    {syllabus.map((item, index) => (
+      <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-4 mt-0.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-medium">{index + 1}</span>
+          </div>
+          <div>
+            <h4 class="text-base font-medium text-gray-900 dark:text-white">{item}</h4>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <div class="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 text-right">
+    <p class="text-sm text-gray-600 dark:text-gray-300">
+      {syllabus.length} modules • Complete hands-on exercises and projects
+    </p>
+  </div>
+</div>

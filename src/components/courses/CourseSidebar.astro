@@ -1,0 +1,130 @@
+---
+import DetailItem from './DetailItem.astro';
+
+// Define the props interface with all optional fields
+interface CourseSidebarProps {
+  duration: string;
+  price: string;
+  originalPrice?: string;
+  discount?: string;
+  category: string;
+  startDate?: string | null;
+  schedule?: string | null;
+  instructor?: string | null;
+  level?: string | null;
+  language?: string | null;
+  certificate?: boolean | null;
+  maxStudents?: number | null;
+  enrolled?: number | null;
+}
+
+// Get props with defaults
+const {
+  duration,
+  price,
+  originalPrice,
+  discount,
+  category,
+  startDate = 'Ongoing',
+  schedule = 'Flexible',
+  instructor = 'Certified Instructor',
+  level = 'Beginner to Intermediate',
+  language = 'English, Marathi',
+  certificate = true,
+  maxStudents = 30,
+  enrolled = 0
+} = Astro.props as CourseSidebarProps;
+
+// Enrollment tracking removed as per user request
+---
+
+<div class="space-y-4">
+  {/* Pricing Card */}
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md dark:hover:border-gray-600">
+    <div class="p-5">
+    <div class="flex items-baseline justify-between mb-4">
+      <div class="flex items-end space-x-2">
+        <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+          {price}
+        </span>
+        {originalPrice && (
+          <span class="text-sm text-gray-500 dark:text-gray-400 line-through mb-0.5">
+            {originalPrice}
+          </span>
+        )}
+      </div>
+      {discount && (
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+          {discount} OFF
+        </span>
+      )}
+    </div>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Course fee</p>
+    </div>
+    
+    <div class="border-t border-gray-100 dark:border-gray-700 my-4"></div>
+    
+    {/* Course Details */}
+    <div class="space-y-3">
+    <DetailItem
+        label="Duration"
+        value={duration}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+        highlight={true}
+      />
+    
+    <DetailItem 
+      label="Category" 
+      value={category} 
+      icon={`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>`}
+    />
+    
+    <DetailItem
+        label="Start Date"
+        value={startDate}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>'
+      />
+    
+    <DetailItem
+        label="Schedule"
+        value={schedule}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>'
+      />
+    
+    <DetailItem
+        label="Instructor"
+        value={instructor}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>'
+      />
+    
+    <DetailItem
+        label="Level"
+        value={level}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+      />
+    
+    <DetailItem
+        label="Language"
+        value={language}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>'
+      />
+    
+    <DetailItem
+        label="Certificate"
+        value={certificate ? 'Yes' : 'No'}
+        icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+      />
+    
+    <div class="pt-2">
+      <button class="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 2a1 1 0 00-1 1v5.586L4.707 4.293a1 1 0 00-1.414 1.414l6 6a1 1 0 001.414 0l6-6a1 1 0 00-1.414-1.414L11 8.586V3a1 1 0 00-1-1z" />
+        <path d="M3 15a2 2 0 012-2h10a2 2 0 012 2v1a2 2 0 01-2 2H5a2 2 0 01-2-2v-1z" />
+      </svg>
+      <span>Enroll Now</span>
+    </button>
+    </div>
+  </div>
+</div>
