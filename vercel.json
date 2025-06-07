@@ -3,11 +3,7 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": ".vercel/output/static",
-        "buildCommand": "npm install && npm run build"
-      }
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
@@ -19,7 +15,7 @@
       "dest": "/$1.$2"
     },
     {
-      "src": "^/.*",
+      "src": "^/(.*)",
       "dest": "/index.html"
     }
   ]
