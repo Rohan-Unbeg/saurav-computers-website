@@ -4,14 +4,12 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": { 
+        "distDir": ".vercel/output/static",
+        "buildCommand": "npm install && npm run build"
+      }
     }
   ],
-  "build": {
-    "env": {
-      "NODE_VERSION": "16"
-    }
-  },
   "routes": [
     {
       "src": "^/assets/(.*)",
@@ -26,7 +24,7 @@
     },
     {
       "src": "^/(.*)",
-      "dest": "/"
+      "dest": "/index.html"
     }
   ]
 }
