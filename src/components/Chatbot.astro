@@ -408,6 +408,28 @@ document.querySelectorAll('#chatbot-suggested button').forEach(button => {
   };
 });
 
+// Function to play notification sound
+function playNotification() {
+  const audio = document.getElementById('chatbot-audio');
+  if (audio) {
+    // Reset audio to start and play
+    audio.currentTime = 0;
+    audio.play().catch(error => {
+      console.error('Error playing sound:', error);
+    });
+  }
+}
+
+// Function to show browser notification
+function showBrowserNotification(message) {
+  if (window.Notification && Notification.permission === 'granted') {
+    new Notification('Saurav Computers', {
+      body: message,
+      icon: '/android-chrome-192x192.png'
+    });
+  }
+}
+
 // Function to append a message to the chat
 function appendMessage(text, sender, isWelcome = false) {
   const messageDiv = document.createElement('div');
@@ -463,6 +485,11 @@ async function handleSubmit(e) {
     
     // Update typing indicator with actual response
     typingIndicator.textContent = botResponse;
+    
+    // Play notification sound for new message
+    if (!windowOpen) {
+      playNotification();
+    }
     
     // Update chat history
     chatHistory.push({ role: 'user', content: userMsg });
